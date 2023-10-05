@@ -9,10 +9,10 @@ app.use(express.urlencoded({ extended: true }));
 
 // Create a nodemailer transporter (configure with your email service)
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: 'Gmail',
     auth: {
         user: 'trents.medication.reminder@gmail.com',
-        pass: 'G3k}]jI12/[%' // Generate an App Password for security
+        pass: 'exmv ibun swfl mogw' // Generate an App Password for security
     }
 });
 
@@ -24,7 +24,7 @@ app.post('/sendReminder', (req, res) => {
     // Schedule sending of email reminder
     setTimeout(() => {
         const mailOptions = {
-            from: 'your_email@gmail.com',
+            from: 'trents.medication.reminder@gmail.com',
             to: email,
             subject: 'Reminder',
             text: 'This is your reminder!'
@@ -33,17 +33,14 @@ app.post('/sendReminder', (req, res) => {
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
                 console.error('Error sending email:', error);
-                res.status(500).send('Error sending email');
+                res.status(500).send('Error sending email'); // Ensure you are returning an error response
             } else {
                 console.log('Email sent: ' + info.response);
                 res.send('Reminder email sent successfully!');
             }
         });
-
-        res.send('Reminder email scheduled!');
-    }, reminderTime - new Date());
-
-});
+    }, /* Missing closing parenthesis for setTimeout here */ reminderTime - new Date());
+}); // Missing closing parenthesis for app.post here
 
 // Start the server
 app.listen(3000, () => {
