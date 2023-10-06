@@ -39,8 +39,8 @@ app.post('/sendReminder', (req, res) => {
                 res.send('Reminder email sent successfully!');
             }
         });
-    }, /* Missing closing parenthesis for setTimeout here */ reminderTime - new Date());
-}); // Missing closing parenthesis for app.post here
+    }, reminderTime - new Date()); // Corrected the closing parenthesis for setTimeout
+});
 
 // Start the server
 app.listen(3000, () => {

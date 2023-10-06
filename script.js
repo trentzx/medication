@@ -6,36 +6,32 @@ document.addEventListener('DOMContentLoaded', function() {
         const email = document.getElementById('email').value;
         const reminderTime = document.getElementById('reminder-time').value;
         
-        // Create an object with the data to send to the server
+        // Create a JavaScript object to hold the data
         const data = {
             email: email,
             'reminder-time': reminderTime
         };
-        
-        // Make a POST request to the server using the Fetch API
+
+        // Convert the data object to JSON
+        const jsonData = JSON.stringify(data);
+
+        // Send the JSON data to the server using fetch
         fetch('/sendReminder', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: jsonData
         })
-        .then(response => response.json()) // Assuming the server sends JSON response
-        .then(responseData => {
-            // Handle the response from the server here
-            console.log('Server response:', responseData);
-            
-            // Optionally, you can display a success message to the user
-            if (responseData.success) {
-                alert('Reminder email scheduled successfully!');
-            } else {
-                alert('Failed to schedule reminder email.');
-            }
+        .then(response => response.json()) // Parse the response as JSON
+        .then(data => {
+            // Handle the response from the server
+            console.log(data); // You can log the response for debugging
+            // Display a message to the user (e.g., success or error message)
         })
         .catch(error => {
-            // Handle any errors that occurred during the fetch or server request
             console.error('Error:', error);
-            alert('An error occurred while scheduling the reminder.');
+            // Handle any errors that occur during the fetch operation
         });
     });
 });
