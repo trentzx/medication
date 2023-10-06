@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'trents.medication.reminder@gmail.com',
-        pass: 'G3k}]jI12/[%' // Generate an App Password for security
+        pass: 'exmv ibun swfl mogw' // Generate an App Password for security
     }
 });
 

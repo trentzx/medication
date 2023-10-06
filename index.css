@@ -4,7 +4,9 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    font-family: 'Poppins', sans-serif; /* Use 'Poppins' with a capital 'P' */
+    font-family: 'Poppins', sans-serif; 
+    background-color: rgba(20, 19, 19, 0.918);
+
 }
 
 .landing {
@@ -21,11 +23,11 @@ body {
 }
 
 #welcome-button {
-    background-color: transparent; /* Set the background to transparent */
-    color: white;
+    background-color: transparent; 
+    color: rgb(255, 255, 255);
     font-size: 24px;
     padding: 10px 20px;
-    border: 2px solid white; /* Add a border to maintain visibility */
+    border: 2px solid rgb(255, 255, 255); 
     border-radius: 5px;
     cursor: pointer;
     outline: none;

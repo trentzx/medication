@@ -1,4 +1,3 @@
-// script.js
 document.addEventListener('DOMContentLoaded', function() {
     const reminderForm = document.getElementById('reminder-form');
     
