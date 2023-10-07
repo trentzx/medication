@@ -9,10 +9,10 @@ app.use(express.urlencoded({ extended: true }));
 
 // Create a nodemailer transporter (configure with your email service)
 const transporter = nodemailer.createTransport({
-    service: 'Gmail',
+    service: 'gmail',
     auth: {
         user: 'trents.medication.reminder@gmail.com',
-        pass: 'exmv ibun swfl mogw' // Generate an App Password for security
+        pass: 'sgbozpqnjhidxkbc' // Generate an App Password for security
     }
 });
 

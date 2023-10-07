@@ -23,7 +23,12 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             body: jsonData
         })
-        .then(response => response.json()) // Parse the response as JSON
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             // Handle the response from the server
             console.log(data); // You can log the response for debugging
@@ -31,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Error:', error);
-            // Handle any errors that occur during the fetch operation
+            // Handle any errors, including non-JSON responses
         });
     });
 });
