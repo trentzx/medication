@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const app = express();
 const nodemailer = require('nodemailer');
@@ -33,13 +32,13 @@ app.post('/sendReminder', (req, res) => {
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
                 console.error('Error sending email:', error);
-                res.status(500).send('Error sending email'); // Ensure you are returning an error response
+                res.status(500).json({ error: 'Error sending email' }); // Respond with JSON error
             } else {
                 console.log('Email sent: ' + info.response);
-                res.send('Reminder email sent successfully!');
+                res.json({ message: 'Reminder email sent successfully!' }); // Respond with JSON success message
             }
         });
-    }, reminderTime - new Date()); // Corrected the closing parenthesis for setTimeout
+    }, reminderTime - Date.now()); // Corrected the closing parenthesis for setTimeout
 });
 
 // Start the server

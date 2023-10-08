@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error(`Network response was not ok (HTTP status ${response.status})`);
             }
             return response.json();
         })
@@ -36,7 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Error:', error);
-            // Handle any errors, including non-JSON responses
+            // Handle any errors, including non-JSON responses and network issues
+            // You can display a user-friendly error message here
         });
     });
 });
