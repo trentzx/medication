@@ -1,6 +1,6 @@
-// server.js
 const express = require('express');
 const app = express();
+const fs = require('fs');
 const nodemailer = require('nodemailer');
 
 // Middleware to parse JSON and URL-encoded form data
@@ -12,9 +12,42 @@ const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'trents.medication.reminder@gmail.com',
-        pass: 'exmv ibun swfl mogw' // Generate an App Password for security
+        pass: 'sgbozpqnjhidxkbc' // Generate an App Password for security
     }
 });
+
+var index = fs.readFileSync('index.html');
+var main = fs.readFileSync('main.html');
+var script = fs.readFileSync('script.js');
+var indexCss = fs.readFileSync('index.css');
+var styleCss = fs.readFileSync('style.css');
+
+
+
+app.get('/', (req, res) => {
+    res.set('Content-Type', 'text/html')
+    res.send(index)
+  })
+
+  app.get('/main.html', (req, res) => {
+    res.set('Content-Type', 'text/html')
+    res.send(main)
+  })
+
+  app.get('/script.js', (req, res) => {
+    res.set('Content-Type', 'text/javascript')
+    res.send(script)
+  })
+
+  app.get('/index.css', (req, res) => {
+    res.set('Content-Type', 'text/css')
+    res.send(indexCss)
+  })
+
+  app.get('/style.css', (req, res) => {
+    res.set('Content-Type', 'text/css')
+    res.send(styleCss)
+  })
 
 // Define a route to handle form submissions
 app.post('/sendReminder', (req, res) => {
@@ -24,7 +57,7 @@ app.post('/sendReminder', (req, res) => {
     // Schedule sending of email reminder
     setTimeout(() => {
         const mailOptions = {
-            from: 'your_email@gmail.com',
+            from: 'trents.medication.reminder@gmail.com',
             to: email,
             subject: 'Reminder',
             text: 'This is your reminder!'
@@ -33,16 +66,15 @@ app.post('/sendReminder', (req, res) => {
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
                 console.error('Error sending email:', error);
-                res.status(500).send('Error sending email');
+                res.status(500).json({ error: 'Error sending email' }); // Respond with JSON error
             } else {
                 console.log('Email sent: ' + info.response);
-                res.send('Reminder email sent successfully!');
+                res.json({ message: 'Reminder email sent successfully!' }); // Respond with JSON success message
             }
         });
+    }, reminderTime - Date.now()); // Corrected the closing parenthesis for setTimeout
 
-        res.send('Reminder email scheduled!');
-    }, reminderTime - new Date());
-
+    res.send("")
 });
 
 // Start the server
