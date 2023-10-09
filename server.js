@@ -60,7 +60,7 @@ app.post('/sendReminder', (req, res) => {
             from: 'trents.medication.reminder@gmail.com',
             to: email,
             subject: 'Reminder',
-            text: 'This is your reminder!'
+            text: 'This is your reminder to take your medication!'
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
