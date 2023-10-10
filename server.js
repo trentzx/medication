@@ -16,12 +16,16 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+// Read HTML and CSS files
+
 var index = fs.readFileSync('index.html');
 var main = fs.readFileSync('main.html');
 var script = fs.readFileSync('script.js');
 var indexCss = fs.readFileSync('index.css');
 var styleCss = fs.readFileSync('style.css');
 
+
+// Define routes for serving HTML and CSS files
 
 
 app.get('/', (req, res) => {
@@ -52,6 +56,7 @@ app.get('/', (req, res) => {
 // Define a route to handle form submissions
 app.post('/sendReminder', (req, res) => {
     const email = req.body.email;
+    const medicationName = req.body.medication; // Correctly access the medication name
     const reminderTime = new Date(req.body['reminder-time']);
 
     // Schedule sending of email reminder
@@ -60,7 +65,7 @@ app.post('/sendReminder', (req, res) => {
             from: 'trents.medication.reminder@gmail.com',
             to: email,
             subject: 'Reminder',
-            text: 'This is your reminder to take your medication!'
+            text: `This is your reminder to take your medication: ${medicationName}` // Use backticks to create a template string
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
@@ -72,10 +77,11 @@ app.post('/sendReminder', (req, res) => {
                 res.json({ message: 'Reminder email sent successfully!' }); // Respond with JSON success message
             }
         });
-    }, reminderTime - Date.now()); // Corrected the closing parenthesis for setTimeout
+    }, reminderTime - Date.now());
 
-    res.send("")
+    res.send("");
 });
+
 
 // Start the server
 app.listen(3000, () => {
