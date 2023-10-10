@@ -55,19 +55,19 @@ app.get('/', (req, res) => {
 
 // Define a route to handle form submissions
 app.post('/sendReminder', (req, res) => {
-    const email = req.body.email;
-    const medicationName = req.body.medication; // Correctly access the medication name
-    const reminderTime = new Date(req.body['reminder-time']);
+  const email = req.body.email;
+  const medicationName = req.body.medication;
+  const reminderTime = new Date(req.body['reminder-time']);
 
-    // Schedule sending of email reminder
+  // Schedule sending of email reminder
     setTimeout(() => {
         const mailOptions = {
             from: 'trents.medication.reminder@gmail.com',
             to: email,
             subject: 'Reminder',
-            text: `This is your reminder to take your medication: ${medicationName}` // Use backticks to create a template string
-        };
-
+            text: `This is your reminder to take your medication: ${JSON.stringify(medicationName)}`
+          };
+console.log(mailOptions)
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
                 console.error('Error sending email:', error);

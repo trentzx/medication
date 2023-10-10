@@ -5,10 +5,12 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         const email = document.getElementById('email').value;
         const reminderTime = document.getElementById('reminder-time').value;
-        
+        const medication = document.getElementById('medication').value;
         // Create a JavaScript object to hold the data
+        
         const data = {
             email: email,
+            'medication': medication,
             'reminder-time': reminderTime
         };
 
